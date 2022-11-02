@@ -1,0 +1,267 @@
+<html manifest="offline.cache">
+<head>
+<style>
+body{background-color:#000024;background-image:url(bg1.png);background-attachment:fixed;background-size:100%;background-repeat:no-repeat;font-family:system-ui;text-align:center}
+button:-moz-focus-inner, button:focus{outline:0;border:none}button{font-family:arial;font-size:20px;text-transform:uppercase;font-weight:700;border:2px solid #404040;border-radius:4px;padding:10px;cursor:pointer;display:inline-block;text-decoration:none;background:0 0;color:#d4d7d8;box-shadow:0 5px 0 #878787}button:hover{font-size:20px;background:#000064;border:2px solid #fff;box-shadow:0 5px 0 #ccc;color:#fff}button:active{background:#ee596f;position:relative;color:#000;top:5px;box-shadow:none}
+</style>
+<meta charset="utf-8">
+<title>PS4MACEDO 9.00 FULL 10</title>
+
+<script> // carrega a cache
+window.applicationCache.onprogress=function(e){document.getElementById("progress").innerHTML='Instalando Cache Offline: <font color="#ee596f">'+Math.round(e.loaded/e.total*100)+"%</font>"},window.applicationCache.oncached=function(){document.getElementById("progress").innerHTML='Cache <font color="#ee596f">instalada</font> com sucesso!!!',setTimeout(function(){document.getElementById("progress").innerHTML='Processo de download da cache para utilizar o <font color="#ee596f">host offline</font>.',document.getElementById("progress").innerHTML='Saia, <font color="#ee596f">desabilite a rede</font> e retorne ao navegador.', cache=true},1500)}
+</script>
+
+<script> // Loader
+function load_poc(){
+var xhr = new XMLHttpRequest();
+xhr.responseType = "arraybuffer";
+xhr.open("GET",PLfile,true);
+xhr.send();
+xhr.onreadystatechange=function(){
+if (xhr.readyState == 4){
+PLS = xhr.response;
+LoaderPL();
+}
+};
+}
+function LoaderPL(){
+if (out_jb == "AllPL")  {
+var payload_buffer = chain.syscall(477, 0, 0x300000 , 7, 0x1002, -1, 0);
+var pl = p.array_from_address(payload_buffer, PLS.byteLength*4);
+var buf = new Uint32Array(PLS);
+pl.set(buf,0);
+var pthread = p.malloc(0x10);
+chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+window.progress.innerHTML= "Carga útil carregada com SUCESSO!!!";
+}
+else if (out_jb == "MLD"){
+var payload_buffer = chain.syscall(477, 0, 0x300000 , 7, 0x1002, -1, 0);
+var pl = p.array_from_address(payload_buffer, PLS.byteLength*4);
+var buf = new Uint32Array(PLS);
+pl.set(buf,0);
+var pthread = p.malloc(0x10);
+chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+Mset();
+}
+else if (out_jb == "BinLD"){
+var payload_buffer = chain.syscall(477, 0x0, 0x300000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+var payload_loader = p.malloc32(0x1000);
+
+var loader_writer = payload_loader.backing;
+loader_writer[0] = 0x56415741;
+loader_writer[1] = 0x83485541;
+loader_writer[2] = 0x894818EC;
+loader_writer[3] = 0xC748243C;
+loader_writer[4] = 0x10082444;
+loader_writer[5] = 0x483C2302;
+loader_writer[6] = 0x102444C7;
+loader_writer[7] = 0x00000000;
+loader_writer[8] = 0x000002BF;
+loader_writer[9] = 0x0001BE00;
+loader_writer[10] = 0xD2310000;
+loader_writer[11] = 0x00009CE8;
+loader_writer[12] = 0xC7894100;
+loader_writer[13] = 0x8D48C789;
+loader_writer[14] = 0xBA082474;
+loader_writer[15] = 0x00000010;
+loader_writer[16] = 0x000095E8;
+loader_writer[17] = 0xFF894400;
+loader_writer[18] = 0x000001BE;
+loader_writer[19] = 0x0095E800;
+loader_writer[20] = 0x89440000;
+loader_writer[21] = 0x31F631FF;
+loader_writer[22] = 0x0062E8D2;
+loader_writer[23] = 0x89410000;
+loader_writer[24] = 0x2C8B4CC6;
+loader_writer[25] = 0x45C64124;
+loader_writer[26] = 0x05EBC300;
+loader_writer[27] = 0x01499848;
+loader_writer[28] = 0xF78944C5;
+loader_writer[29] = 0xBAEE894C;
+loader_writer[30] = 0x00001000;
+loader_writer[31] = 0x000025E8;
+loader_writer[32] = 0x7FC08500;
+loader_writer[33] = 0xFF8944E7;
+loader_writer[34] = 0x000026E8;
+loader_writer[35] = 0xF7894400;
+loader_writer[36] = 0x00001EE8;
+loader_writer[37] = 0x2414FF00;
+loader_writer[38] = 0x18C48348;
+loader_writer[39] = 0x5E415D41;
+loader_writer[40] = 0x31485F41;
+loader_writer[41] = 0xC748C3C0;
+loader_writer[42] = 0x000003C0;
+loader_writer[43] = 0xCA894900;
+loader_writer[44] = 0x48C3050F;
+loader_writer[45] = 0x0006C0C7;
+loader_writer[46] = 0x89490000;
+loader_writer[47] = 0xC3050FCA;
+loader_writer[48] = 0x1EC0C748;
+loader_writer[49] = 0x49000000;
+loader_writer[50] = 0x050FCA89;
+loader_writer[51] = 0xC0C748C3;
+loader_writer[52] = 0x00000061;
+loader_writer[53] = 0x0FCA8949;
+loader_writer[54] = 0xC748C305;
+loader_writer[55] = 0x000068C0;
+loader_writer[56] = 0xCA894900;
+loader_writer[57] = 0x48C3050F;
+loader_writer[58] = 0x006AC0C7;
+loader_writer[59] = 0x89490000;
+loader_writer[60] = 0xC3050FCA;
+chain.syscall(74, payload_loader, 0x4000, (0x1 | 0x2 | 0x4));
+
+var pthread = p.malloc(0x10);
+//
+{
+chain.fcall(window.syscalls[203], payload_buffer, 0x300000);
+chain.fcall(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
+}
+chain.run();
+Binset();
+}
+}
+function jbdone(){
+progress.innerHTML="Desbloqueio efetuado com SUCESSO!!!"
+setTimeout(function(){progress.innerHTML="LISTA DE CARGAS ÚTEIS"},3e3)
+mymenu.style.display="block";
+}
+function Binset(){
+window.progress.innerHTML="Pronto! Envie as cargas úteis pela porta 9020";
+alert("\n\nPronto!\n\nEnvie as cargas úteis pela porta 9020");
+}
+function Mset(){
+window.progress.innerHTML="Pronto! Envie as cargas úteis pela porta 9021";
+alert("\n\nPronto!\n\nEnvie as cargas úteis pela porta 9021");
+}
+function loadScript(path){
+var xhr = new XMLHttpRequest(path);
+xhr.open("GET", path, false);
+xhr.send('');
+return xhr.responseText;
+}
+function print(){}
+</script>
+
+<script> // Cargas
+function Linux(){
+setTimeout(function(){
+eval.call(window, loadScript('netcat.js')
++loadScript('malloc.js')
++loadScript('ropb2.js')
++loadScript('syscalls.js')
++loadScript('syscalls2.js')
++loadScript('LinuxLoader'+memo.value+'.js')
++loadScript('mira.js')
++loadScript('relocator.js'));
+}, 1000);
+}
+function Mira(){
+progress.innerHTML="Carregando o Mira... Por favor, aguarde o sistema reiniciar.";
+setTimeout(function(){
+eval.call(window, loadScript('netcat.js')
++loadScript('malloc.js')
++loadScript('ropb2.js')
++loadScript('syscalls.js')
++loadScript('syscalls2.js')
++loadScript('mira2.js')
++loadScript('mira.js')
++loadScript('relocator.js'));
+}, 1000);
+}
+function goldhen224(){PLfile = "goldhen224.bin";out_jb = "AllPL";load_poc();}
+function goldhen222(){PLfile = "goldhen222.bin";out_jb = "AllPL";load_poc();}
+function goldhen225b7(){PLfile = "goldhen225b7.bin";out_jb = "AllPL";load_poc();}
+function load_PS4Debug(){PLfile = "ps4debug.bin";out_jb = "AllPL";load_poc();}
+function load_pkgBackup(){PLfile = "pkgBackup.bin";out_jb = "AllPL";load_poc();}
+function load_permanentuart(){PLfile = "permanentuart.bin";out_jb = "AllPL";load_poc();}
+function load_App2USB(){PLfile = "app2usb.bin";out_jb = "AllPL";load_poc();}
+function load_BackupDB(){PLfile = "backupdb.bin";out_jb = "AllPL";load_poc();}
+function load_AppDumper(){PLfile = "app-dumper.bin";out_jb = "AllPL";load_poc();}
+function load_KernelDumper(){PLfile = "kerneldumper.bin";out_jb = "AllPL";load_poc();}
+function load_ModuleDumper(){PLfile = "mdumper.bin";out_jb = "AllPL";load_poc();}
+function load_RestoreDB(){PLfile = "restoredb.bin";out_jb = "AllPL";load_poc();}
+function load_DisableASLR(){PLfile = "disableaslr.bin";out_jb = "AllPL";load_poc();}
+function load_DisableUpdates(){PLfile = "disableupdates.bin";out_jb = "AllPL";load_poc();}
+function load_EnableUpdates(){PLfile = "enableupdates.bin";out_jb = "AllPL";load_poc();}
+function load_EnableBrowser(){PLfile = "enablebrowser.bin";out_jb = "AllPL";load_poc();}
+function load_ExitIDU(){PLfile = "exitidu.bin";out_jb = "AllPL";load_poc();}
+function load_FTP(){PLfile = "ftp.bin";out_jb = "AllPL";load_poc();}
+function load_HistoryBlocker(){PLfile = "historyblocker.bin";out_jb = "AllPL";load_poc();}
+function load_RIFRenamer(){PLfile = "rifrenamer.bin";out_jb = "AllPL";load_poc();}
+function load_Orbis(){PLfile = "toolbox.bin";out_jb = "AllPL";load_poc();}
+function load_GTAV(){PLfile = modsGTAV.value+".bin";out_jb = "AllPL";load_poc();}
+function load_RDRII(){PLfile = modsRDRII.value+".bin";out_jb = "AllPL";load_poc();}
+function load_ToDex(){PLfile = "ToDex.bin";out_jb = "AllPL";load_poc();}
+function load_WebRTE(){PLfile = "WebRTE.bin";out_jb = "AllPL";load_poc();}
+function load_fan(){PLfile = "fan"+tempC.value+".bin";out_jb = "AllPL";load_poc();}
+function Mloader(){PLfile = "MiraLoader.bin";out_jb = "MLD";load_poc();}
+function Bloader(){progress.innerHTML="Carregando Binloader... Por favor, aguarde!";out_jb = "BinLD"; LoaderPL();}
+</script>
+
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+</head>
+
+<body onload=setTimeout(poc,500)>
+<br><br><br><br><br><br><br>
+<hr width="70%" size="1" color="#ff5757">
+<div id=progress style=font-size:31px;text-align:center;color:#fff>Preparando o desbloqueio. Por favor, <font color="#ee596f">AGUARDE!!!</font></div>
+<hr width="70%" size="1" color="#ff5757">
+
+<div style=display:none id=mymenu><br>
+<table align=center>
+<tr><td align="center">
+<button onmouseover="progress.innerHTML='GoldHen v2.2.5b7 por SISTR0'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="goldhen225b7(); return false"><font color="#6089f6"> GoldHen V2.2.5b7 </font></button>&nbsp;
+<button onmouseover="progress.innerHTML='GoldHen v2.2.4 por SISTR0'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="goldhen224(); return false"><font color="#6089f6"> GoldHen V2.2.4 </font></button>&nbsp;
+<button onmouseover="progress.innerHTML='GoldHen v2.2.2 por SISTR0'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="goldhen222(); return false"><font color="#6089f6"> GoldHen V2.2.2 </font></button>&nbsp;
+<button onmouseover="progress.innerHTML='Mira Orbis'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="Mira(); return false"><font color="#ee596f"> Mira </font></button>&nbsp;
+<button onmouseover="progress.innerHTML='Permite enviar arquivos .BIN para o PS4 pela porta 9021'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="Mloader(); return false"> MiraLoader </button>&nbsp;
+<button onmouseover="progress.innerHTML='Permite enviar arquivos .BIN para o PS4 pela porta 9020'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="Bloader(); return false"> BinLoader </button>&nbsp;
+</td></tr>
+<tr><td><br/></td></tr>
+<tr><td align="center" >
+<button onmouseover="progress.innerHTML='Permite fazer cópia de segurança de seus jogos. (v1.1)'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_pkgBackup(); return false"> PKG Backup </button>&nbsp;
+<button onmouseover="progress.innerHTML='Permite fazer cópia de segurança de seus jogos via USB'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_AppDumper(); return false"> Dumper Game </button>&nbsp;
+<button onmouseover="progress.innerHTML='Transfere jogos do console para um hd externo (exFAT)'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_App2USB(); return false"> App2USB </button>&nbsp;
+<button onmouseover="progress.innerHTML='Permite usar o PS4 Offline Account Activator'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_PS4Debug(); return false"> Ps4 Bebug </button>&nbsp;
+<button onmouseover="progress.innerHTML='Para gerenciamento dos arquivos do console via servidor FTP'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_FTP(); return false"> FTP </button>&nbsp;
+<button onmouseover="progress.innerHTML='Modo de depuração do console (teste de devkit)'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_ToDex(); return false"> ToDex </button>&nbsp;
+<button onmouseover="progress.innerHTML='Desabilita o modo IDU do console'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_ExitIDU(); return false"> IDU </button>&nbsp;
+<button onmouseover="progress.innerHTML='Desabilita a ASLR do console'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_DisableASLR(); return false"> Aslr </button>&nbsp;
+<button onmouseover="progress.innerHTML='Habilita as atualizações automáticas do firmware'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_EnableUpdates(); return false"> Enable Upd </button>&nbsp;
+<button onmouseover="progress.innerHTML='Desabilita as atualizações automáticas do firmware'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_DisableUpdates(); return false">Disable Upd</button>&nbsp;
+</td></tr>
+<tr><td><br/></td></tr>
+<tr><td align="center">
+<button onmouseover="progress.innerHTML='Uma modificação da IU do ps para ajudar a lançar e desenvolver homebrew'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_Orbis(); return false"> Toolbox </button>&nbsp;
+<a href="web.html"><button onmouseover="progress.innerHTML='Para ativar conta PSN offline (por Sleirsgoevy)'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'">Web Activa</button></a>&nbsp;
+<button onmouseover="progress.innerHTML='Faz uma cópia de segurança do kernel via USB'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_KernelDumper(); return false"> K. Dumper </button>&nbsp;
+<button onmouseover="progress.innerHTML='Para despejar e descriptografar todos os módulos de uma vez'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_ModuleDumper(); return false"> M. Dumper </button>&nbsp;
+<button onmouseover="progress.innerHTML='Permitindo que o PS4 veja os arquivos de ativação RIF'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_RIFRenamer(); return false"> Rif </button>&nbsp;
+<button onmouseover="progress.innerHTML='Arte permanente UART'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_permanentuart(); return false"> uart </button>&nbsp;
+<button onmouseover="progress.innerHTML='Habilita o navegador'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_EnableBrowser(); return false"> Browser </button>&nbsp;
+<button onmouseover="progress.innerHTML='Desative a abertura automática da última página do navegador'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_HistoryBlocker(); return false"> History </button>&nbsp;
+<button onmouseover="progress.innerHTML='Faz cópia do banco de dados e dados de usuários via USB'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_BackupDB(); return false"> DB Backup </button>&nbsp;
+<button onmouseover="progress.innerHTML='Restaura cópia do banco de dados e dados de usuário via USB'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_RestoreDB(); return false"> DB Restore </button>&nbsp;
+</td></tr>
+<tr><td><br/></td></tr>
+<tr><td align="center">
+<button onmouseover="progress.innerHTML='Para gerenciamento de trapaças'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_WebRTE(); return false"> WebRTE </button>&nbsp;
+<button onmouseover="progress.innerHTML='Lista de MODs do Grand Theft Auto V'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_GTAV(); return false"> GTA V </button><select style="font-size:22px;height:40px;width:200px;background-color:transparent;color:#ee596f;border:2px solid #404040;" id="modsGTAV"><option value="gtavag100">ArabicGuy v1.00</option><option value="gtavag127">ArabicGuy v1.27</option><option value="gtavag132">ArabicGuy v1.32</option><option value="gtavag133">ArabicGuy v1.33</option><option value="gtavbq133">BeefQueef v1.33</option><option value="gtavbq134">BeefQueef v1.34</option><option value="gtavbq138">BeefQueef v1.38</option><option value="gtavex135">Expulsion v1.35</option><option value="gtavex138">Expulsion v1.38</option><option value="gtavlt127">LTS v1.27</option><option value="gtavmb127">Menu-Base v1.27</option><option value="gtavw132">WildeModz v1.32</option><option value="gtavw133">WildeModz v1.33</option><option value="gtavw138">WildeModz v1.38</option></select>&nbsp;
+<button onmouseover="progress.innerHTML='Lista de MODS Red Dead Redemption II'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_RDRII(); return false"> RDR II </button><select style="font-size:22px;height:40px;width:175px;background-color:transparent;color:#ee596f;border:2px solid #404040;" id="modsRDRII"><option value="rdriio100">Oysters v1.00</option><option value="rdriio113">Oysters v1.13</option><option value="rdriio119">Oysters v1.19</option><option value="rdriio124">Oysters v1.24</option></select>&nbsp;&nbsp;
+<button onmouseover="progress.innerHTML='Carrega o Linux via USB'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="Linux(); return false"> Linux </button><select style="font-size:22px;height:40px;width:75px;background-color:transparent;color:#ee596f;border:2px solid #404040;" id="memo"><option value="1gb">1GB</option><option value="2gb">2GB</option><option value="3gb">3GB</option><option value="4gb">4GB</option><option value="5gb">5GB</option></select>&nbsp;&nbsp;
+<button onmouseover="progress.innerHTML='Controle de velocidade do cooler para uma temperatura alvo'"; onmouseout="progress.innerHTML='LISTA DE CARGAS ÚTEIS'" onclick="load_fan(); return false"> Fan Control </button><select style="font-size:22px;height:40px;width:60px;background-color:transparent;color:#ee596f;border:2px solid #404040;" id="tempC"><option value="60">60</option><option value="65">65</option><option value="70">70</option><option value="75">75</option><option value="80">80</option></select><font size=5px color="#fff">&nbsp;&#176;C</font>&nbsp;
+</td></tr>
+<tr><td><br/></td></tr>
+<tr><td><br/></td></tr>
+<tr><td><br/></td></tr>
+<tr><td><h1 style='font-size:22px;text-align:center;'><font color="#ffffff">Na tentativa de evitar erros, <font color="#ee596f">não esqueça de remover o USB</font> do console.</font></h1></td></tr>
+</table>
+<div style="text-align:left;position:fixed;left:10px;bottom:10px;width:100%;font-size:22px;color:#fff">Agradecimento especial: <font color=#6089f6>TheFloW-SpecterDev-ChendoChap-Znullptr-Sleirsgoevy-SiSTRo-e todos que contribuíram com a cena.</font></div>
+</div>
+</body>
+
+</html>
